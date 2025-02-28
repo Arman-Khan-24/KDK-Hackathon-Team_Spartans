@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus Timer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: {
+                background: "#1A1F2C",
+                surface: "#221F26",
+                accent: "#D946EF",
+              },
+            },
+            backgroundImage: {
+              "gradient-dark": "linear-gradient(to right, #1A1F2C, #D946EF)",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="min-h-screen bg-gradient-to-br from-purple-900 to-black text-white"
+  >
+    <div class="container mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left Panel - Task Input -->
+        <div class="lg:col-span-3 space-y-6">
+          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+            <form id="task-form" class="space-y-4">
+              <input
+                type="text"
+                id="task-input"
+                placeholder="Add a new task..."
+                class="w-full px-4 py-2 rounded-lg border border-purple-500/20 bg-black/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+              <button
+                type="submit"
+                class="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Add Task
+              </button>
+            </form>
+            <div id="tasks-list" class="mt-6 space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- Center Panel - Timer -->
+        <div class="lg:col-span-6">
+          <div
+            class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-8 text-center"
+          >
+            <div class="timer-circle relative w-64 h-64 mx-auto">
+              <svg class="w-full h-full -rotate-90" viewBox="0 0 320 320">
+                <circle
+                  cx="160"
+                  cy="160"
+                  r="150"
+                  class="stroke-purple-500/20 fill-none"
+                  stroke-width="12"
+                />
+                <circle
+                  id="progress-circle"
+                  cx="160"
+                  cy="160"
+                  r="150"
+                  class="stroke-purple-500 fill-none transition-all duration-1000"
+                  stroke-width="12"
+                  stroke-dasharray="942.478"
+                  stroke-dashoffset="0"
+                />
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div id="timer" class="text-5xl font-semibold text-white">
+                  25:00
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 space-x-4">
+              <button
+                id="start-btn"
+                class="px-6 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Start
+              </button>
+              <button
+                id="pause-btn"
+                class="px-6 py-2 bg-gray-500/80 text-white rounded-lg hover:opacity-90 transition-opacity hidden"
+              >
+                Pause
+              </button>
+              <button
+                id="stop-btn"
+                class="px-6 py-2 bg-red-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Stop
+              </button>
+              <button
+                id="reset-btn"
+                class="px-6 py-2 bg-gray-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Reset
+              </button>
+            </div>
+
+            <div class="mt-8 flex justify-center space-x-4">
+              <button
+                id="fullscreen-btn"
+                class="flex items-center px-4 py-2 text-white hover:text-purple-500 transition-colors"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                  />
+                </svg>
+                Fullscreen
+              </button>
+              <button
+                id="white-noise-btn"
+                class="flex items-center px-4 py-2 text-white hover:text-purple-500 transition-colors"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 001.414 1.414m2.828-9.9a9 9 0 012.728-2.728"
+                  />
+                </svg>
+                White Noise
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel - Stats -->
+        <div class="lg:col-span-3 space-y-6">
+          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Focus Time Today</h2>
+            <div class="text-4xl font-bold text-purple-500">
+              <span id="focus-time">0</span>
+              <span class="text-sm text-white/70 ml-1">minutes</span>
+            </div>
+          </div>
+
+          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+            <h2 class="text-lg font-semibold mb-4">Focus Time Records</h2>
+            <div class="h-2 bg-black/50 rounded-full overflow-hidden">
+              <div
+                id="focus-progress"
+                class="h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-500"
+                style="width: 0%"
+              ></div>
+            </div>
+            <div class="flex justify-between mt-2 text-sm text-white/70">
+              <span>0:00</span>
+              <span id="max-focus-time">0:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fullscreen Modal -->
+    <div
+      id="fullscreen-modal"
+      class="fixed inset-0 bg-gradient-to-br from-purple-900 to-black hidden items-center justify-center"
+    >
+      <button
+        id="exit-fullscreen"
+        class="absolute top-8 right-8 text-white hover:text-purple-500 transition-colors"
+      >
+        <svg
+          class="w-8 h-8"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <div class="text-center">
+        <div id="fullscreen-timer" class="text-8xl font-bold text-white mb-8">
+          25:00
+        </div>
+        <div id="fullscreen-tasks" class="space-y-4"></div>
+        <div class="space-x-4 mt-4">
+          <button
+            id="fullscreen-start"
+            class="px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Start
+          </button>
+          <button
+            id="fullscreen-pause"
+            class="px-8 py-3 bg-gray-500/80 text-white rounded-lg hover:opacity-90 transition-opacity hidden"
+          >
+            Pause
+          </button>
+          <button
+            id="fullscreen-stop"
+            class="px-8 py-3 bg-red-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Stop
+          </button>
+          <button
+            id="fullscreen-reset"
+            class="px-8 py-3 bg-gray-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Timer variables
+      let timeLeft = 25 * 60; // Time left in seconds
+      let timerId = null; // Timer ID
+      let isRunning = false; // Whether the timer is running
+      let focusMinutes = 0; // Focus time in minutes
+      let maxFocusMinutes = 0; // Maximum focus time in minutes
+
+      // DOM elements
+      const timer = document.getElementById("timer");
+      const fullscreenTimer = document.getElementById("fullscreen-timer");
+      const progressCircle = document.getElementById("progress-circle");
+      const focusTimeDisplay = document.getElementById("focus-time");
+      const focusProgress = document.getElementById("focus-progress");
+      const maxFocusTimeDisplay = document.getElementById("max-focus-time");
+      const startBtn = document.getElementById("start-btn");
+      const pauseBtn = document.getElementById("pause-btn");
+      const stopBtn = document.getElementById("stop-btn");
+      const resetBtn = document.getElementById("reset-btn");
+      const fullscreenStartBtn = document.getElementById("fullscreen-start");
+      const fullscreenPauseBtn = document.getElementById("fullscreen-pause");
+      const fullscreenStopBtn = document.getElementById("fullscreen-stop");
+      const fullscreenResetBtn = document.getElementById("fullscreen-reset");
+      const fullscreenBtn = document.getElementById("fullscreen-btn");
+      const exitFullscreenBtn = document.getElementById("exit-fullscreen");
+      const fullscreenModal = document.getElementById("fullscreen-modal");
+      const taskForm = document.getElementById("task-form");
+      const taskInput = document.getElementById("task-input");
+      const tasksList = document.getElementById("tasks-list");
+      const fullscreenTasks = document.getElementById("fullscreen-tasks");
+
+      // Update timer display
+      const updateTimer = () => {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+          seconds
+        ).padStart(2, "0")}`;
+
+        timer.textContent = formattedTime;
+        fullscreenTimer.textContent = formattedTime;
+
+        const progress = (timeLeft / (25 * 60)) * 100;
+        const circumference = 2 * Math.PI * 150;
+        progressCircle.style.strokeDashoffset =
+          ((100 - progress) / 100) * circumference;
+      };
+
+      // Update focus time display
+      const updateFocusTimeDisplay = () => {
+        focusTimeDisplay.textContent = focusMinutes;
+        focusProgress.style.width = `${
+          (focusMinutes / maxFocusMinutes) * 100
+        }%`;
+        maxFocusTimeDisplay.textContent = `${Math.floor(
+          maxFocusMinutes / 60
+        )}:${String(maxFocusMinutes % 60).padStart(2, "0")}`;
+      };
+
+      // Start timer
+      const startTimer = () => {
+        if (!isRunning) {
+          isRunning = true;
+          startBtn.classList.add("hidden");
+          pauseBtn.classList.remove("hidden");
+          fullscreenStartBtn.classList.add("hidden");
+          fullscreenPauseBtn.classList.remove("hidden");
+          timerId = setInterval(() => {
+            if (timeLeft > 0) {
+              timeLeft--;
+              updateTimer();
+
+              if (timeLeft % 60 === 0) {
+                focusMinutes++;
+                if (focusMinutes > maxFocusMinutes) {
+                  maxFocusMinutes = focusMinutes;
+                }
+                updateFocusTimeDisplay();
+              }
+            } else {
+              stopTimer();
+            }
+          }, 1000);
+        }
+      };
+
+      // Pause timer
+      const pauseTimer = () => {
+        if (isRunning) {
+          clearInterval(timerId);
+          isRunning = false;
+          startBtn.classList.remove("hidden");
+          pauseBtn.classList.add("hidden");
+          fullscreenStartBtn.classList.remove("hidden");
+          fullscreenPauseBtn.classList.add("hidden");
+        }
+      };
+
+      // Stop timer
+      const stopTimer = () => {
+        pauseTimer();
+        timeLeft = 25 * 60;
+        updateTimer();
+      };
+
+      // Reset timer
+      const resetTimer = () => {
+        stopTimer();
+        focusMinutes = 0;
+        updateFocusTimeDisplay();
+      };
+
+      // Render task
+      const renderTask = (task, taskId) => {
+        return `
+                <div class="flex items-center justify-between bg-black/20 p-2 rounded-lg">
+                    <div class="flex items-center space-x-2">
+                        <input type="checkbox" id="task-${taskId}" class="task-checkbox w-5 h-5" />
+                        <label for="task-${taskId}" class="task-label text-white">${task}</label>
+                    </div>
+                    <button class="delete-task text-red-500">×</button>
+                </div>
+            `;
+      };
+
+      // Sync tasks to fullscreen
+      const syncTasksToFullscreen = () => {
+        fullscreenTasks.innerHTML = tasksList.innerHTML;
+      };
+
+      // Event listeners
+      startBtn.addEventListener("click", startTimer);
+      pauseBtn.addEventListener("click", pauseTimer);
+      stopBtn.addEventListener("click", stopTimer);
+      resetBtn.addEventListener("click", resetTimer);
+      fullscreenStartBtn.addEventListener("click", startTimer);
+      fullscreenPauseBtn.addEventListener("click", pauseTimer);
+      fullscreenStopBtn.addEventListener("click", stopTimer);
+      fullscreenResetBtn.addEventListener("click", resetTimer);
+
+      fullscreenBtn.addEventListener("click", () => {
+        syncTasksToFullscreen();
+        fullscreenModal.classList.remove("hidden");
+        fullscreenModal.classList.add("flex");
+      });
+
+      exitFullscreenBtn.addEventListener("click", () => {
+        fullscreenModal.classList.add("hidden");
+        fullscreenModal.classList.remove("flex");
+      });
+
+      taskForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const task = taskInput.value.trim();
+
+        if (task) {
+          const taskId = Date.now();
+          const taskHTML = renderTask(task, taskId);
+          tasksList.insertAdjacentHTML("beforeend", taskHTML);
+          syncTasksToFullscreen();
+          taskInput.value = "";
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("delete-task")) {
+          e.target.closest("div").remove();
+          syncTasksToFullscreen();
+        }
+
+        if (e.target.classList.contains("task-checkbox")) {
+          const label = e.target.nextElementSibling;
+          label.classList.toggle("line-through");
+          label.classList.toggle("text-gray-500");
+        }
+      });
+
+      // White noise functionality
+      const whiteNoiseBtn = document.getElementById("white-noise-btn");
+      let whiteNoiseAudio = new Audio("https://example.com/white-noise.mp3"); // Replace with actual white noise audio URL
+      whiteNoiseAudio.loop = true;
+
+      whiteNoiseBtn.addEventListener("click", () => {
+        if (whiteNoiseAudio.paused) {
+          whiteNoiseAudio.play();
+          whiteNoiseBtn.classList.add("text-purple-500");
+        } else {
+          whiteNoiseAudio.pause();
+          whiteNoiseBtn.classList.remove("text-purple-500");
+        }
+      });
+
+      // Initialize
+      updateTimer();
+      updateFocusTimeDisplay();
+    </script>
+  </body>
+</html>
