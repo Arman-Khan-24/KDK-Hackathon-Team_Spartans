@@ -13,35 +13,91 @@
               dark: {
                 background: "#1A1F2C",
                 surface: "#221F26",
-                accent: "#D946EF",
+                accent: "#00bfff",
               },
             },
             backgroundImage: {
-              "gradient-dark": "linear-gradient(to right, #1A1F2C, #D946EF)",
+              "gradient-dark": "linear-gradient(to right, #1A1F2C, #00bfff)",
+            },
+            animation: {
+              "pulse-opacity": "pulse-opacity 10s ease-in-out infinite",
+            },
+            keyframes: {
+              "pulse-opacity": {
+                "0%, 100%": { opacity: "0.05" },
+                "50%": { opacity: "0.15" },
+              },
             },
           },
         },
       };
     </script>
+    <style>
+      /* Beam background styles */
+      .beams-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+        background-color: #1A1F2C;
+      }
+
+      .beams-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: blur(35px);
+      }
+
+      .beams-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(26, 31, 44, 0.05);
+        backdrop-filter: blur(50px);
+        animation: pulse-opacity 10s ease-in-out infinite;
+      }
+
+      @keyframes pulse-opacity {
+        0%, 100% {
+          opacity: 0.05;
+        }
+        50% {
+          opacity: 0.15;
+        }
+      }
+
+      /* Improve contrast for content */
+      .glass-panel {
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    </style>
   </head>
-  <body
-    class="min-h-screen bg-gradient-to-br from-purple-900 to-black text-white"
-  >
+  <body class="min-h-screen text-white">
     <div class="container mx-auto px-4 py-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <!-- Left Panel - Task Input -->
         <div class="lg:col-span-3 space-y-6">
-          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+          <div class="glass-panel rounded-xl shadow-lg p-6">
             <form id="task-form" class="space-y-4">
               <input
                 type="text"
                 id="task-input"
                 placeholder="Add a new task..."
-                class="w-full px-4 py-2 rounded-lg border border-purple-500/20 bg-black/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                class="w-full px-4 py-2 rounded-lg border border-blue-500/20 bg-black/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               <button
                 type="submit"
-                class="w-full px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+                class="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
               >
                 Add Task
               </button>
@@ -53,7 +109,7 @@
         <!-- Center Panel - Timer -->
         <div class="lg:col-span-6">
           <div
-            class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-8 text-center"
+            class="glass-panel rounded-xl shadow-lg p-8 text-center"
           >
             <div class="timer-circle relative w-64 h-64 mx-auto">
               <svg class="w-full h-full -rotate-90" viewBox="0 0 320 320">
@@ -61,7 +117,7 @@
                   cx="160"
                   cy="160"
                   r="150"
-                  class="stroke-purple-500/20 fill-none"
+                  class="stroke-blue-500/20 fill-none"
                   stroke-width="12"
                 />
                 <circle
@@ -69,7 +125,7 @@
                   cx="160"
                   cy="160"
                   r="150"
-                  class="stroke-purple-500 fill-none transition-all duration-1000"
+                  class="stroke-blue-500 fill-none transition-all duration-1000"
                   stroke-width="12"
                   stroke-dasharray="942.478"
                   stroke-dashoffset="0"
@@ -85,7 +141,7 @@
             <div class="mt-8 space-x-4">
               <button
                 id="start-btn"
-                class="px-6 py-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+                class="px-6 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
               >
                 Start
               </button>
@@ -97,7 +153,7 @@
               </button>
               <button
                 id="stop-btn"
-                class="px-6 py-2 bg-red-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+                class="px-6 py-2 bg-pink-600 text-white rounded-lg hover:opacity-90 transition-opacity"
               >
                 Stop
               </button>
@@ -112,7 +168,7 @@
             <div class="mt-8 flex justify-center space-x-4">
               <button
                 id="fullscreen-btn"
-                class="flex items-center px-4 py-2 text-white hover:text-purple-500 transition-colors"
+                class="flex items-center px-4 py-2 text-white hover:text-blue-500 transition-colors"
               >
                 <svg
                   class="w-5 h-5 mr-2"
@@ -129,7 +185,7 @@
               </button>
               <button
                 id="white-noise-btn"
-                class="flex items-center px-4 py-2 text-white hover:text-purple-500 transition-colors"
+                class="flex items-center px-4 py-2 text-white hover:text-blue-500 transition-colors"
               >
                 <svg
                   class="w-5 h-5 mr-2"
@@ -150,20 +206,20 @@
 
         <!-- Right Panel - Stats -->
         <div class="lg:col-span-3 space-y-6">
-          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+          <div class="glass-panel rounded-xl shadow-lg p-6">
             <h2 class="text-lg font-semibold mb-4">Focus Time Today</h2>
-            <div class="text-4xl font-bold text-purple-500">
+            <div class="text-4xl font-bold text-blue-500">
               <span id="focus-time">0</span>
               <span class="text-sm text-white/70 ml-1">minutes</span>
             </div>
           </div>
 
-          <div class="bg-black/30 backdrop-blur rounded-xl shadow-lg p-6">
+          <div class="glass-panel rounded-xl shadow-lg p-6">
             <h2 class="text-lg font-semibold mb-4">Focus Time Records</h2>
             <div class="h-2 bg-black/50 rounded-full overflow-hidden">
               <div
                 id="focus-progress"
-                class="h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-500"
+                class="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
                 style="width: 0%"
               ></div>
             </div>
@@ -179,11 +235,11 @@
     <!-- Fullscreen Modal -->
     <div
       id="fullscreen-modal"
-      class="fixed inset-0 bg-gradient-to-br from-purple-900 to-black hidden items-center justify-center"
+      class="fixed inset-0 hidden items-center justify-center z-50"
     >
       <button
         id="exit-fullscreen"
-        class="absolute top-8 right-8 text-white hover:text-purple-500 transition-colors"
+        class="absolute top-8 right-8 text-white hover:text-blue-500 transition-colors"
       >
         <svg
           class="w-8 h-8"
@@ -203,7 +259,7 @@
         <div class="space-x-4 mt-4">
           <button
             id="fullscreen-start"
-            class="px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:opacity-90 transition-opacity"
+            class="px-8 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:opacity-90 transition-opacity"
           >
             Start
           </button>
@@ -215,7 +271,7 @@
           </button>
           <button
             id="fullscreen-stop"
-            class="px-8 py-3 bg-red-500/80 text-white rounded-lg hover:opacity-90 transition-opacity"
+            class="px-8 py-3 bg-pink-600 text-white rounded-lg hover:opacity-90 transition-opacity"
           >
             Stop
           </button>
@@ -228,6 +284,9 @@
         </div>
       </div>
     </div>
+
+    <!-- Include the background script -->
+    <script src="/beams-background.js"></script>
 
     <script>
       // Timer variables
@@ -408,16 +467,16 @@
 
       // White noise functionality
       const whiteNoiseBtn = document.getElementById("white-noise-btn");
-      let whiteNoiseAudio = new Audio("https://example.com/white-noise.mp3"); // Replace with actual white noise audio URL
+      let whiteNoiseAudio = new Audio("https://cdn.freesound.org/previews/139/139324_2514450-lq.mp3"); // White noise sound from freesound.org
       whiteNoiseAudio.loop = true;
 
       whiteNoiseBtn.addEventListener("click", () => {
         if (whiteNoiseAudio.paused) {
           whiteNoiseAudio.play();
-          whiteNoiseBtn.classList.add("text-purple-500");
+          whiteNoiseBtn.classList.add("text-blue-500");
         } else {
           whiteNoiseAudio.pause();
-          whiteNoiseBtn.classList.remove("text-purple-500");
+          whiteNoiseBtn.classList.remove("text-blue-500");
         }
       });
 
