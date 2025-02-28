@@ -3,9 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fitness Timer</title>
+    <title>Fitness Cyclone Timer</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/src/fitness/input.css" />
     <style>
       .timer-circle {
         width: 200px;
@@ -41,7 +40,7 @@
   </head>
   <body class="bg-black min-h-screen">
     <div class="container mx-auto px-4 py-8">
-     s <!-- Exercise Title -->
+      <!-- Exercise Title -->
       <h1
         class="text-white text-4xl font-bold text-center mb-8"
         id="exerciseTitle"
@@ -65,7 +64,7 @@
         <div class="flex flex-col items-center gap-6">
           <!-- Timer Circle -->
           <div class="timer-circle flex items-center justify-center">
-            <div class="time-display" id="timeDisplay">00:01</div>
+            <div class="time-display" id="timeDisplay">01:00</div>
           </div>
 
           <!-- Control Buttons -->
@@ -184,34 +183,38 @@
           100;
         document.querySelector(
           ".timer-circle"
-        ).style.background = `radial-gradient(closest-side, #2D1B69 79%, transparent 80% 100%),
+        ).style.background = `radial-gradient(closest-side, #000000 79%, transparent 80% 100%),
                  conic-gradient(#4ADE80 ${progress}%, rgba(128, 128, 128, 0.2) ${progress}%)`;
       }
 
       function toggleTimer() {
         isRunning = !isRunning;
         if (isRunning) {
-          timer = setInterval(() => {
-            if (timeLeft > 0) {
-              timeLeft--;
-              updateDisplay();
-              exerciseVideo.play();
-            } else {
-              skipExercise();
-            }
-          }, 1000);
+          startTimer();
+          exerciseVideo.play();
           playPauseBtn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>`;
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>`;
         } else {
           clearInterval(timer);
           exerciseVideo.pause();
           playPauseBtn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                    </svg>`;
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+            </svg>`;
         }
+      }
+
+      function startTimer() {
+        timer = setInterval(() => {
+          if (timeLeft > 0) {
+            timeLeft--;
+            updateDisplay();
+          } else {
+            skipExercise();
+          }
+        }, 1000);
       }
 
       function skipExercise() {
@@ -220,23 +223,27 @@
         currentExerciseIndex = (currentExerciseIndex + 1) % exercises.length;
         timeLeft = exercises[currentExerciseIndex].duration;
         exerciseTitle.textContent = exercises[currentExerciseIndex].name;
-        exerciseVideo.src = exercises[currentExerciseIndex].video;
+        
+        // Update video source
+        const videoSource = exerciseVideo.querySelector("source");
+        videoSource.src = exercises[currentExerciseIndex].video;
         exerciseVideo.load();
+        
         updateDisplay();
         playPauseBtn.innerHTML = `
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                </svg>`;
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          </svg>`;
       }
 
       function toggleWishlist() {
         const currentExercise = exercises[currentExerciseIndex].name;
         if (wishlist.has(currentExercise)) {
           wishlist.delete(currentExercise);
-          alert(${currentExercise} removed from wishlist);
+          alert(`${currentExercise} removed from wishlist`);
         } else {
           wishlist.add(currentExercise);
-          alert(${currentExercise} added to wishlist);
+          alert(`${currentExercise} added to wishlist`);
         }
       }
 
