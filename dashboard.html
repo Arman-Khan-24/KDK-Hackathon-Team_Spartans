@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fitness App</title>
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,21 +32,21 @@
             },
             keyframes: {
               fadeIn: {
-                '0%': { opacity: '0' },
-                '100%': { opacity: '1' },
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
               },
               slideUp: {
-                '0%': { transform: 'translateY(20px)', opacity: '0' },
-                '100%': { transform: 'translateY(0)', opacity: '1' },
+                "0%": { transform: "translateY(20px)", opacity: "0" },
+                "100%": { transform: "translateY(0)", opacity: "1" },
               },
             },
             animation: {
-              fadeIn: 'fadeIn 0.5s ease-out forwards',
-              slideUp: 'slideUp 0.5s ease-out forwards',
+              fadeIn: "fadeIn 0.5s ease-out forwards",
+              slideUp: "slideUp 0.5s ease-out forwards",
             },
-          }
-        }
-      }
+          },
+        },
+      };
     </script>
     <style>
       /* Custom styles that are difficult with Tailwind alone */
@@ -55,20 +55,22 @@
         backdrop-filter: blur(4px);
         border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 1.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
         transition: all 0.3s ease;
       }
-      
+
       .glass-card:hover {
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
       }
-      
+
       /* Dark mode styles */
       .dark .glass-card {
         background-color: rgba(17, 24, 39, 0.8);
         border-color: rgba(55, 65, 81, 0.3);
       }
-      
+
       .stat-circle {
         border-radius: 9999px;
         display: flex;
@@ -78,47 +80,49 @@
         aspect-ratio: 1/1;
         transition: all 0.3s ease;
       }
-      
+
       .water-stat {
         background-color: rgba(219, 234, 254, 1);
         color: rgba(30, 64, 175, 1);
       }
-      
+
       .sleep-stat {
         background-color: rgba(254, 240, 138, 0.5);
         color: rgba(161, 98, 7, 1);
       }
-      
+
       .exercise-stat {
         background-color: rgba(254, 240, 138, 0.5);
         color: rgba(161, 98, 7, 1);
       }
-      
+
       .kcal-stat {
         background-color: rgba(233, 213, 255, 0.5);
         color: rgba(107, 33, 168, 1);
       }
-      
+
       .steps-stat {
         background-color: rgba(233, 213, 255, 0.5);
         color: rgba(107, 33, 168, 1);
       }
-      
+
       .dark .water-stat {
         background-color: rgba(30, 58, 138, 0.3);
         color: rgba(147, 197, 253, 1);
       }
-      
-      .dark .sleep-stat, .dark .exercise-stat {
+
+      .dark .sleep-stat,
+      .dark .exercise-stat {
         background-color: rgba(146, 64, 14, 0.3);
         color: rgba(253, 224, 71, 1);
       }
-      
-      .dark .kcal-stat, .dark .steps-stat {
+
+      .dark .kcal-stat,
+      .dark .steps-stat {
         background-color: rgba(88, 28, 135, 0.3);
         color: rgba(216, 180, 254, 1);
       }
-      
+
       .sidebar-link {
         display: flex;
         align-items: center;
@@ -128,47 +132,49 @@
         color: rgba(55, 65, 81, 1);
         transition: all 0.2s ease;
       }
-      
+
       .sidebar-link:hover {
         background-color: rgba(243, 244, 246, 1);
       }
-      
+
       .sidebar-link.active {
         background-color: rgba(243, 244, 246, 1);
         color: rgba(0, 0, 0, 1);
         font-weight: 500;
       }
-      
+
       .dark .sidebar-link {
         color: rgba(209, 213, 219, 1);
       }
-      
+
       .dark .sidebar-link:hover {
         background-color: rgba(31, 41, 55, 0.5);
       }
-      
+
       .dark .sidebar-link.active {
         background-color: rgba(31, 41, 55, 1);
         color: rgba(255, 255, 255, 1);
       }
-      
+
       /* Toast notification */
       #toast {
         transition: opacity 0.3s ease, transform 0.3s ease;
         transform: translateY(-10px);
       }
-      
+
       #toast.show {
         opacity: 1 !important;
         pointer-events: auto !important;
         transform: translateY(0);
       }
-      
+
       /* Progress bar animation */
       @keyframes progressAnimation {
-        from { width: 0%; }
+        from {
+          width: 0%;
+        }
       }
-      
+
       .animate-progress {
         animation: progressAnimation 1s ease-out forwards;
       }
@@ -177,7 +183,7 @@
       .section {
         display: none;
       }
-      
+
       /* Show active section */
       .section.active {
         display: block;
@@ -187,136 +193,489 @@
   <body class="bg-background text-foreground min-h-screen">
     <div class="min-h-screen flex flex-col md:flex-row">
       <!-- Mobile Header -->
-      <div class="md:hidden flex items-center justify-between p-4 border-b bg-card z-10">
+      <div
+        class="md:hidden flex items-center justify-between p-4 border-b bg-card z-10"
+      >
         <button id="mobileMenuButton" class="rounded-lg hover:bg-muted p-2">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide-menu"
+          >
+            <line x1="4" x2="20" y1="12" y2="12" />
+            <line x1="4" x2="20" y1="6" y2="6" />
+            <line x1="4" x2="20" y1="18" y2="18" />
+          </svg>
         </button>
         <div class="font-bold text-xl">Flexor</div>
         <div class="w-8 h-8 rounded-full bg-muted overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+          <img
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+            alt="User"
+            class="w-full h-full object-cover"
+          />
         </div>
       </div>
 
       <!-- Mobile Sidebar Overlay -->
-      <div id="mobileSidebarOverlay" class="fixed inset-0 bg-black/50 z-30 md:hidden hidden transition-opacity duration-300"></div>
-      
+      <div
+        id="mobileSidebarOverlay"
+        class="fixed inset-0 bg-black/50 z-30 md:hidden hidden transition-opacity duration-300"
+      ></div>
+
       <!-- Mobile Sidebar -->
-      <div id="mobileSidebar" class="fixed inset-y-0 left-0 w-[280px] bg-card z-40 p-4 transition-transform duration-300 ease-in-out md:hidden transform -translate-x-full">
+      <div
+        id="mobileSidebar"
+        class="fixed inset-y-0 left-0 w-[280px] bg-card z-40 p-4 transition-transform duration-300 ease-in-out md:hidden transform -translate-x-full"
+      >
         <div class="flex items-center justify-between mb-8">
           <span class="font-bold text-xl">Flexor</span>
           <button id="closeMobileMenu" class="rounded-full hover:bg-muted p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-x"
+            >
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg>
           </button>
         </div>
-        
+
         <!-- Mobile Sidebar Content -->
         <div class="flex flex-col flex-1">
           <nav class="space-y-1">
-            <a href="#" class="sidebar-link nav-link active" data-section="dashboard">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <a
+              href="#"
+              class="sidebar-link nav-link active"
+              data-section="dashboard"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-layout-dashboard"
+              >
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
               <span>Dashboard</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="profile">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-user-cog"><circle cx="12" cy="12" r="3"/><path d="M6.5 15a5 5 0 1 0 11 0"/><path d="M2.5 15a9 9 0 1 0 19 0"/><path d="M16.5 9.5a4 4 0 0 1 0 6.5"/><path d="M21.48 8A4 4 0 0 0 19 6.5"/><path d="M23 12a2 2 0 0 0-2 2"/><path d="M19 17.5a4 4 0 0 0 2.48-1.5"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-user-cog"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M6.5 15a5 5 0 1 0 11 0" />
+                <path d="M2.5 15a9 9 0 1 0 19 0" />
+                <path d="M16.5 9.5a4 4 0 0 1 0 6.5" />
+                <path d="M21.48 8A4 4 0 0 0 19 6.5" />
+                <path d="M23 12a2 2 0 0 0-2 2" />
+                <path d="M19 17.5a4 4 0 0 0 2.48-1.5" />
+              </svg>
               <span>Profile</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="analytics">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-line-chart"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-line-chart"
+              >
+                <path d="M3 3v18h18" />
+                <path d="m19 9-5 5-4-4-3 3" />
+              </svg>
               <span>Analytics</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="workouts">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-dumbbell"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-dumbbell"
+              >
+                <path d="m6.5 6.5 11 11" />
+                <path d="m21 21-1-1" />
+                <path d="m3 3 1 1" />
+                <path d="m18 22 4-4" />
+                <path d="m2 6 4-4" />
+                <path d="m3 10 7-7" />
+                <path d="m14 21 7-7" />
+              </svg>
               <span>Workouts</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="rewards">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-gift"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-gift"
+              >
+                <polyline points="20 12 20 22 4 22 4 12" />
+                <rect width="20" height="5" x="2" y="7" />
+                <line x1="12" x2="12" y1="22" y2="7" />
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+              </svg>
               <span>Rewards</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="settings">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-settings"
+              >
+                <path
+                  d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
               <span>Settings</span>
             </a>
           </nav>
         </div>
-        
+
         <!-- Mobile Sidebar Footer -->
         <div class="mt-auto pt-4 border-t border-border">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-full bg-muted overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+              <img
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                alt="User"
+                class="w-full h-full object-cover"
+              />
             </div>
             <div>
               <div class="font-medium">Sadam</div>
               <div class="text-xs text-muted-foreground">Free Account</div>
             </div>
           </div>
-          
-          <button id="mobileDarkModeToggle" class="w-full sidebar-link mb-2 justify-start font-normal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+
+          <button
+            id="mobileDarkModeToggle"
+            class="w-full sidebar-link mb-2 justify-start font-normal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-sun"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="m4.93 4.93 1.41 1.41" />
+              <path d="m17.66 17.66 1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="m6.34 17.66-1.41 1.41" />
+              <path d="m19.07 4.93-1.41 1.41" />
+            </svg>
             <span>Light Mode</span>
           </button>
-          
-          <button class="w-full sidebar-link text-red-600 hover:bg-red-50 hover:text-red-700 justify-start font-normal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+
+          <button
+            class="w-full sidebar-link text-red-600 hover:bg-red-50 hover:text-red-700 justify-start font-normal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-log-out"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" x2="9" y1="12" y2="12" />
+            </svg>
             <span>Logout</span>
           </button>
         </div>
       </div>
 
       <!-- Desktop Sidebar -->
-      <div class="hidden md:flex flex-col w-[280px] bg-card border-r border-border h-screen p-4 transition-all duration-300 ease-in-out">
+      <div
+        class="hidden md:flex flex-col w-[280px] bg-card border-r border-border h-screen p-4 transition-all duration-300 ease-in-out"
+      >
         <div class="flex items-center justify-between mb-8">
           <span class="font-bold text-xl">Fit.io</span>
           <button id="darkModeToggle" class="rounded-full hover:bg-muted p-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-moon dark:hidden"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-sun hidden dark:block"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-moon dark:hidden"
+            >
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-sun hidden dark:block"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2" />
+              <path d="M12 20v2" />
+              <path d="m4.93 4.93 1.41 1.41" />
+              <path d="m17.66 17.66 1.41 1.41" />
+              <path d="M2 12h2" />
+              <path d="M20 12h2" />
+              <path d="m6.34 17.66-1.41 1.41" />
+              <path d="m19.07 4.93-1.41 1.41" />
+            </svg>
           </button>
         </div>
-        
+
         <!-- Desktop Sidebar Content -->
         <div class="flex-1">
           <nav class="space-y-1">
-            <a href="#" class="sidebar-link nav-link active" data-section="dashboard">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-layout-dashboard"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            <a
+              href="#"
+              class="sidebar-link nav-link active"
+              data-section="dashboard"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-layout-dashboard"
+              >
+                <rect width="7" height="9" x="3" y="3" rx="1" />
+                <rect width="7" height="5" x="14" y="3" rx="1" />
+                <rect width="7" height="9" x="14" y="12" rx="1" />
+                <rect width="7" height="5" x="3" y="16" rx="1" />
+              </svg>
               <span>Dashboard</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="profile">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-user-cog"><circle cx="12" cy="12" r="3"/><path d="M6.5 15a5 5 0 1 0 11 0"/><path d="M2.5 15a9 9 0 1 0 19 0"/><path d="M16.5 9.5a4 4 0 0 1 0 6.5"/><path d="M21.48 8A4 4 0 0 0 19 6.5"/><path d="M23 12a2 2 0 0 0-2 2"/><path d="M19 17.5a4 4 0 0 0 2.48-1.5"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-user-cog"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M6.5 15a5 5 0 1 0 11 0" />
+                <path d="M2.5 15a9 9 0 1 0 19 0" />
+                <path d="M16.5 9.5a4 4 0 0 1 0 6.5" />
+                <path d="M21.48 8A4 4 0 0 0 19 6.5" />
+                <path d="M23 12a2 2 0 0 0-2 2" />
+                <path d="M19 17.5a4 4 0 0 0 2.48-1.5" />
+              </svg>
               <span>Profile</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="analytics">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-line-chart"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-line-chart"
+              >
+                <path d="M3 3v18h18" />
+                <path d="m19 9-5 5-4-4-3 3" />
+              </svg>
               <span>Analytics</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="workouts">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-dumbbell"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m2 6 4-4"/><path d="m3 10 7-7"/><path d="m14 21 7-7"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-dumbbell"
+              >
+                <path d="m6.5 6.5 11 11" />
+                <path d="m21 21-1-1" />
+                <path d="m3 3 1 1" />
+                <path d="m18 22 4-4" />
+                <path d="m2 6 4-4" />
+                <path d="m3 10 7-7" />
+                <path d="m14 21 7-7" />
+              </svg>
               <span>Workouts</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="rewards">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-gift"><polyline points="20 12 20 22 4 22 4 12"/><rect width="20" height="5" x="2" y="7"/><line x1="12" x2="12" y1="22" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-gift"
+              >
+                <polyline points="20 12 20 22 4 22 4 12" />
+                <rect width="20" height="5" x="2" y="7" />
+                <line x1="12" x2="12" y1="22" y2="7" />
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+              </svg>
               <span>Rewards</span>
             </a>
             <a href="#" class="sidebar-link nav-link" data-section="settings">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-settings"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide-settings"
+              >
+                <path
+                  d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
               <span>Settings</span>
             </a>
           </nav>
         </div>
-        
+
         <!-- Desktop Sidebar Footer -->
         <div class="mt-auto pt-4 border-t border-border">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-10 h-10 rounded-full bg-muted overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+              <img
+                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                alt="User"
+                class="w-full h-full object-cover"
+              />
             </div>
             <div>
               <div class="font-medium">Sadam</div>
               <div class="text-xs text-muted-foreground">Free Account</div>
             </div>
           </div>
-          
-          <button class="w-full sidebar-link text-red-600 hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-900/20 justify-start font-normal">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+
+          <button
+            class="w-full sidebar-link text-red-600 hover:bg-red-50 hover:text-red-700 dark:hover:bg-red-900/20 justify-start font-normal"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide-log-out"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" x2="9" y1="12" y2="12" />
+            </svg>
             <span>Logout</span>
           </button>
         </div>
@@ -326,33 +685,63 @@
       <main class="flex-1 p-4 md:p-8 overflow-y-auto">
         <!-- Top Bar - Desktop Only -->
         <div class="hidden md:flex items-center justify-between mb-8">
-          <div class="flex items-center space-x-2 bg-card px-4 py-2 rounded-full shadow-sm">
+          <div
+            class="flex items-center space-x-2 bg-card px-4 py-2 rounded-full shadow-sm"
+          >
             <span class="font-medium" id="currentDate"></span>
           </div>
-          
+
           <div class="flex items-center space-x-4">
             <div class="flex -space-x-2">
-              <div class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted">
-                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+              <div
+                class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                  alt="User"
+                  class="w-full h-full object-cover"
+                />
               </div>
-              <div class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+              <div
+                class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                  alt="User"
+                  class="w-full h-full object-cover"
+                />
               </div>
-              <div class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted">
-                <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="User" class="w-full h-full object-cover">
+              <div
+                class="w-8 h-8 rounded-full border-2 border-background overflow-hidden bg-muted"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80"
+                  alt="User"
+                  class="w-full h-full object-cover"
+                />
               </div>
             </div>
-            
-            <div class="bg-card px-4 py-2 rounded-full flex items-center shadow-sm">
+
+            <div
+              class="bg-card px-4 py-2 rounded-full flex items-center shadow-sm"
+            >
               <span class="font-medium">Get Pro Account</span>
               <div class="flex items-center ml-4 space-x-2">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png" alt="Play Store" class="h-5">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png" alt="App Store" class="h-5">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/2560px-Google_Play_Store_badge_EN.svg.png"
+                  alt="Play Store"
+                  class="h-5"
+                />
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png"
+                  alt="App Store"
+                  class="h-5"
+                />
               </div>
             </div>
           </div>
         </div>
-        
+
         <!-- Dashboard Section -->
         <div id="dashboard-section" class="section active animate-fadeIn">
           <!-- Main Dashboard Content -->
@@ -361,26 +750,74 @@
             <div class="glass-card p-6 animate-fadeIn">
               <div class="flex justify-between items-start mb-6">
                 <div>
-                  <h1 class="text-3xl md:text-4xl font-bold mb-2">Wellness Hub</h1>
-                  <p class="text-muted-foreground">Access specialized tools for your wellness journey</p>
+                  <h1 class="text-3xl md:text-4xl font-bold mb-2">
+                    Wellness Hub
+                  </h1>
+                  <p class="text-muted-foreground">
+                    Access specialized tools for your wellness journey
+                  </p>
                 </div>
               </div>
-              
+
               <div class="flex flex-col gap-4 mt-8">
-                <button class="bg-[#8B5CF6] hover:bg-[#7c4af3] text-white w-full flex items-center justify-center gap-2 py-6 rounded-lg transition-colors">
-                  <span class="text-lg">Pomodoro Timer</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                <button
+                  class="bg-[#8B5CF6] hover:bg-[#7c4af3] text-white w-full flex items-center justify-center gap-2 py-6 rounded-lg transition-colors"
+                >
+                  <span class="text-lg"
+                    ><a href="pomodoro.html">Pomodoro Timer</a></span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide-external-link"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg>
                 </button>
-                
-                <button onclick="redirectTo('fitness.html')" class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 w-full flex items-center justify-center gap-2 py-6 rounded-lg transition-colors">
-                  <span class="text-lg">Fitness</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-external-link"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+
+                <button
+                  class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 w-full flex items-center justify-center gap-2 py-6 rounded-lg transition-colors"
+                >
+                  <span class="text-lg"
+                    ><a href="fitness.html">Fitness</a></span
+                  >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide-external-link"
+                  >
+                    <path
+                      d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                    />
+                    <polyline points="15 3 21 3 21 9" />
+                    <line x1="10" x2="21" y1="14" y2="3" />
+                  </svg>
                 </button>
               </div>
-              
+
               <div class="mt-8 bg-muted/30 p-4 rounded-lg">
                 <h3 class="font-medium mb-2">Quick Wellness Tips</h3>
-                <ul class="text-sm text-muted-foreground list-disc pl-5 space-y-1">
+                <ul
+                  class="text-sm text-muted-foreground list-disc pl-5 space-y-1"
+                >
                   <li>Hydrate regularly throughout the day</li>
                   <li>Take short breaks during work sessions</li>
                   <li>Aim for 7-9 hours of sleep per night</li>
@@ -388,7 +825,7 @@
                 </ul>
               </div>
             </div>
-            
+
             <!-- Right Section - Stats -->
             <div class="flex flex-col gap-8">
               <!-- Top Stats -->
@@ -399,12 +836,27 @@
                     <div class="text-2xl font-bold">23% Increase</div>
                   </div>
                   <div class="flex space-x-2">
-                    <button class="bg-transparent hover:bg-muted rounded-full p-2 transition-colors">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-chevron-right"><path d="m9 18 6-6-6-6"/></svg>
+                    <button
+                      class="bg-transparent hover:bg-muted rounded-full p-2 transition-colors"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide-chevron-right"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
                     </button>
                   </div>
                 </div>
-                
+
                 <div class="grid grid-cols-3 gap-4">
                   <div class="flex justify-center">
                     <div class="stat-circle kcal-stat w-32 h-32 text-2xl">
@@ -433,48 +885,68 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <!-- Quick Action Buttons -->
                 <div class="grid grid-cols-4 gap-2 mt-6">
-                  <button class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors" onclick="updateStat('water', 1)">
+                  <button
+                    class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors"
+                    onclick="updateStat('water', 1)"
+                  >
                     Add Water
                   </button>
-                  <button class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors" onclick="updateStat('steps', 1000)">
+                  <button
+                    class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors"
+                    onclick="updateStat('steps', 1000)"
+                  >
                     Add Steps
                   </button>
-                  <button class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors" onclick="updateStat('sleep', 0.5)">
+                  <button
+                    class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors"
+                    onclick="updateStat('sleep', 0.5)"
+                  >
                     Add Sleep
                   </button>
-                  <button class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors" onclick="updateStat('calories', 100)">
+                  <button
+                    class="border border-gray-200 hover:bg-gray-50 text-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 text-xs py-2 px-1 rounded-lg transition-colors"
+                    onclick="updateStat('calories', 100)"
+                  >
                     Add Calories
                   </button>
                 </div>
               </div>
-              
+
               <!-- Bottom Section - Weekly Progress -->
               <div class="glass-card p-6 animate-fadeIn">
                 <div class="flex justify-between items-center mb-6">
                   <div>
-                    <div class="text-sm text-muted-foreground">Your Activity</div>
+                    <div class="text-sm text-muted-foreground">
+                      Your Activity
+                    </div>
                     <div class="text-2xl font-bold">Weekly Progress</div>
                   </div>
                 </div>
-                
-                <div class="flex items-end justify-between h-32 mt-4 pb-4 px-4 border-b">
+
+                <div
+                  class="flex items-end justify-between h-32 mt-4 pb-4 px-4 border-b"
+                >
                   <div class="w-8 h-[40%] bg-muted rounded-t-lg"></div>
                   <div class="w-8 h-[60%] bg-muted rounded-t-lg"></div>
                   <div class="w-8 h-[45%] bg-muted rounded-t-lg"></div>
                   <div class="w-8 h-[70%] bg-muted rounded-t-lg"></div>
                   <div class="w-8 h-[85%] bg-[#8B5CF6] rounded-t-lg relative">
-                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded-full">
+                    <div
+                      class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs py-1 px-2 rounded-full"
+                    >
                       Today
                     </div>
                   </div>
                   <div class="w-8 h-[30%] bg-muted rounded-t-lg"></div>
                   <div class="w-8 h-[20%] bg-muted rounded-t-lg"></div>
                 </div>
-                
-                <div class="flex justify-between mt-2 text-xs text-muted-foreground px-1">
+
+                <div
+                  class="flex justify-between mt-2 text-xs text-muted-foreground px-1"
+                >
                   <div>Mon</div>
                   <div>Tue</div>
                   <div>Wed</div>
@@ -492,7 +964,9 @@
         <div id="profile-section" class="section animate-fadeIn">
           <div class="glass-card p-6">
             <h2 class="text-2xl font-bold mb-4">Profile</h2>
-            <p class="text-muted-foreground">Your profile information will appear here.</p>
+            <p class="text-muted-foreground">
+              Your profile information will appear here.
+            </p>
           </div>
         </div>
 
@@ -500,7 +974,9 @@
         <div id="analytics-section" class="section animate-fadeIn">
           <div class="glass-card p-6">
             <h2 class="text-2xl font-bold mb-4">Analytics</h2>
-            <p class="text-muted-foreground">Your analytics information will appear here.</p>
+            <p class="text-muted-foreground">
+              Your analytics information will appear here.
+            </p>
           </div>
         </div>
 
@@ -508,7 +984,9 @@
         <div id="workouts-section" class="section animate-fadeIn">
           <div class="glass-card p-6">
             <h2 class="text-2xl font-bold mb-4">Workouts</h2>
-            <p class="text-muted-foreground">Your workout information will appear here.</p>
+            <p class="text-muted-foreground">
+              Your workout information will appear here.
+            </p>
           </div>
         </div>
 
@@ -520,32 +998,89 @@
                 <div class="text-sm text-muted-foreground">Rewards</div>
                 <div class="text-2xl font-bold">Earn While You Burn</div>
               </div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-amber-500"
+              >
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path
+                  d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"
+                ></path>
+                <path
+                  d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"
+                ></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+              </svg>
             </div>
-            
+
             <div class="mb-6">
               <div class="flex justify-between mb-2">
                 <span>Exercise Minutes</span>
-                <span class="font-bold"><span id="exerciseMinutes">250</span>/500</span>
+                <span class="font-bold"
+                  ><span id="exerciseMinutes">250</span>/500</span
+                >
               </div>
-              <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div id="progressBar" class="bg-[#8B5CF6] h-2.5 rounded-full animate-progress" style="width: 50%"></div>
+              <div
+                class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700"
+              >
+                <div
+                  id="progressBar"
+                  class="bg-[#8B5CF6] h-2.5 rounded-full animate-progress"
+                  style="width: 50%"
+                ></div>
               </div>
               <div class="text-xs text-muted-foreground mt-2">
                 Complete 500 minutes of exercise to unlock rewards!
               </div>
             </div>
-            
+
             <div class="space-y-4">
-              <div class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700">
-                <div class="bg-red-100 p-3 rounded-full mr-4 dark:bg-red-900/20">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-red-500 dark:text-red-400"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect width="20" height="5" x="2" y="7"></rect><line x1="12" x2="12" y1="22" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+              <div
+                class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700"
+              >
+                <div
+                  class="bg-red-100 p-3 rounded-full mr-4 dark:bg-red-900/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-red-500 dark:text-red-400"
+                  >
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect width="20" height="5" x="2" y="7"></rect>
+                    <line x1="12" x2="12" y1="22" y2="7"></line>
+                    <path
+                      d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"
+                    ></path>
+                    <path
+                      d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"
+                    ></path>
+                  </svg>
                 </div>
                 <div class="flex-1">
                   <h4 class="font-medium">50% off on Swiggy</h4>
-                  <p class="text-xs text-muted-foreground">Valid for 7 days after unlocking</p>
+                  <p class="text-xs text-muted-foreground">
+                    Valid for 7 days after unlocking
+                  </p>
                 </div>
-                <button 
+                <button
                   id="swiggyButton"
                   class="px-3 py-1 rounded-lg text-xs font-medium bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
                   disabled
@@ -554,16 +1089,43 @@
                   Locked
                 </button>
               </div>
-              
-              <div class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700">
-                <div class="bg-amber-100 p-3 rounded-full mr-4 dark:bg-amber-900/20">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 dark:text-amber-400"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect width="20" height="5" x="2" y="7"></rect><line x1="12" x2="12" y1="22" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+
+              <div
+                class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700"
+              >
+                <div
+                  class="bg-amber-100 p-3 rounded-full mr-4 dark:bg-amber-900/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-amber-500 dark:text-amber-400"
+                  >
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect width="20" height="5" x="2" y="7"></rect>
+                    <line x1="12" x2="12" y1="22" y2="7"></line>
+                    <path
+                      d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"
+                    ></path>
+                    <path
+                      d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"
+                    ></path>
+                  </svg>
                 </div>
                 <div class="flex-1">
                   <h4 class="font-medium">40% off on Amazon</h4>
-                  <p class="text-xs text-muted-foreground">Valid for 30 days after unlocking</p>
+                  <p class="text-xs text-muted-foreground">
+                    Valid for 30 days after unlocking
+                  </p>
                 </div>
-                <button 
+                <button
                   id="amazonButton"
                   class="px-3 py-1 rounded-lg text-xs font-medium bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
                   disabled
@@ -572,16 +1134,43 @@
                   Locked
                 </button>
               </div>
-              
-              <div class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700">
-                <div class="bg-blue-100 p-3 rounded-full mr-4 dark:bg-blue-900/20">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500 dark:text-blue-400"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect width="20" height="5" x="2" y="7"></rect><line x1="12" x2="12" y1="22" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+
+              <div
+                class="flex items-center p-3 border border-gray-200 rounded-lg dark:border-gray-700"
+              >
+                <div
+                  class="bg-blue-100 p-3 rounded-full mr-4 dark:bg-blue-900/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-blue-500 dark:text-blue-400"
+                  >
+                    <polyline points="20 12 20 22 4 22 4 12"></polyline>
+                    <rect width="20" height="5" x="2" y="7"></rect>
+                    <line x1="12" x2="12" y1="22" y2="7"></line>
+                    <path
+                      d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"
+                    ></path>
+                    <path
+                      d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"
+                    ></path>
+                  </svg>
                 </div>
                 <div class="flex-1">
                   <h4 class="font-medium">Buy 1 Get 1 on BookMyShow</h4>
-                  <p class="text-xs text-muted-foreground">Valid for 15 days after unlocking</p>
+                  <p class="text-xs text-muted-foreground">
+                    Valid for 15 days after unlocking
+                  </p>
                 </div>
-                <button 
+                <button
                   id="bookMyShowButton"
                   class="px-3 py-1 rounded-lg text-xs font-medium bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400"
                   disabled
@@ -591,8 +1180,8 @@
                 </button>
               </div>
             </div>
-            
-            <button 
+
+            <button
               class="w-full mt-6 py-2 border border-dashed border-gray-300 rounded-lg text-sm hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800 transition-colors"
               onclick="updateStat('exercise', 1)"
             >
@@ -605,20 +1194,39 @@
         <div id="settings-section" class="section animate-fadeIn">
           <div class="glass-card p-6">
             <h2 class="text-2xl font-bold mb-4">Settings</h2>
-            <p class="text-muted-foreground">Your settings information will appear here.</p>
+            <p class="text-muted-foreground">
+              Your settings information will appear here.
+            </p>
           </div>
         </div>
       </main>
     </div>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed top-4 right-4 max-w-xs bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow-lg opacity-0 pointer-events-none z-50 p-4 border border-gray-200 dark:border-gray-700">
+    <div
+      id="toast"
+      class="fixed top-4 right-4 max-w-xs bg-white dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg shadow-lg opacity-0 pointer-events-none z-50 p-4 border border-gray-200 dark:border-gray-700"
+    >
       <div class="flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500 mr-2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-green-500 mr-2"
+        >
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
         <span id="toastMessage">Notification Message</span>
       </div>
     </div>
-    
+
     <script>
       // Initialize stats
       const stats = {
@@ -627,198 +1235,224 @@
         exercisesCompleted: 2,
         sleepHours: 7.5,
         steps: 6500,
-        exerciseMinutes: 250
+        exerciseMinutes: 250,
       };
-      
+
       // Format current date
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         const now = new Date();
-        const options = { 
-          weekday: 'long', 
-          day: 'numeric', 
-          month: 'long' 
+        const options = {
+          weekday: "long",
+          day: "numeric",
+          month: "long",
         };
-        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
-        
+        document.getElementById("currentDate").textContent =
+          now.toLocaleDateString("en-US", options);
+
         // Update progress bar
         updateRewardsProgress();
-        
+
         // Set up navigation
         setupNavigation();
       });
-      
+
       // Set up navigation between sections
       function setupNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
             e.preventDefault();
-            
+
             // Get section to show
-            const sectionId = this.getAttribute('data-section');
-            
+            const sectionId = this.getAttribute("data-section");
+
             // Remove active class from all links and add to clicked link
-            navLinks.forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-            
+            navLinks.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
+
             // Hide all sections and show the selected one
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.classList.remove('active'));
-            
-            const activeSection = document.getElementById(sectionId + '-section');
-            activeSection.classList.add('active');
-            
+            const sections = document.querySelectorAll(".section");
+            sections.forEach((section) => section.classList.remove("active"));
+
+            const activeSection = document.getElementById(
+              sectionId + "-section"
+            );
+            activeSection.classList.add("active");
+
             // Close mobile menu if open
-            const mobileSidebar = document.getElementById('mobileSidebar');
-            const overlay = document.getElementById('mobileSidebarOverlay');
-            if (!mobileSidebar.classList.contains('-translate-x-full')) {
-              mobileSidebar.classList.add('-translate-x-full');
-              overlay.classList.add('hidden');
+            const mobileSidebar = document.getElementById("mobileSidebar");
+            const overlay = document.getElementById("mobileSidebarOverlay");
+            if (!mobileSidebar.classList.contains("-translate-x-full")) {
+              mobileSidebar.classList.add("-translate-x-full");
+              overlay.classList.add("hidden");
             }
           });
         });
       }
-      
+
       // Dark mode toggle
-      document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
-      document.getElementById('mobileDarkModeToggle').addEventListener('click', toggleDarkMode);
-      
+      document
+        .getElementById("darkModeToggle")
+        .addEventListener("click", toggleDarkMode);
+      document
+        .getElementById("mobileDarkModeToggle")
+        .addEventListener("click", toggleDarkMode);
+
       function toggleDarkMode() {
-        const isDarkMode = document.documentElement.classList.toggle('dark');
+        const isDarkMode = document.documentElement.classList.toggle("dark");
         updateDarkModeButtonText(isDarkMode);
       }
-      
+
       function updateDarkModeButtonText(isDarkMode) {
-        const mobileButton = document.getElementById('mobileDarkModeToggle');
-        const moonIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
-        const sunIcon = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
-        
+        const mobileButton = document.getElementById("mobileDarkModeToggle");
+        const moonIcon =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-moon"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+        const sunIcon =
+          '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+
         if (isDarkMode) {
-          mobileButton.innerHTML = sunIcon + '<span>Light Mode</span>';
+          mobileButton.innerHTML = sunIcon + "<span>Light Mode</span>";
         } else {
-          mobileButton.innerHTML = moonIcon + '<span>Dark Mode</span>';
+          mobileButton.innerHTML = moonIcon + "<span>Dark Mode</span>";
         }
       }
-      
+
       // Mobile menu handling
-      document.getElementById('mobileMenuButton').addEventListener('click', toggleMobileMenu);
-      document.getElementById('closeMobileMenu').addEventListener('click', toggleMobileMenu);
-      document.getElementById('mobileSidebarOverlay').addEventListener('click', toggleMobileMenu);
-      
+      document
+        .getElementById("mobileMenuButton")
+        .addEventListener("click", toggleMobileMenu);
+      document
+        .getElementById("closeMobileMenu")
+        .addEventListener("click", toggleMobileMenu);
+      document
+        .getElementById("mobileSidebarOverlay")
+        .addEventListener("click", toggleMobileMenu);
+
       function toggleMobileMenu() {
-        const mobileSidebar = document.getElementById('mobileSidebar');
-        const overlay = document.getElementById('mobileSidebarOverlay');
-        
-        mobileSidebar.classList.toggle('-translate-x-full');
-        overlay.classList.toggle('hidden');
+        const mobileSidebar = document.getElementById("mobileSidebar");
+        const overlay = document.getElementById("mobileSidebarOverlay");
+
+        mobileSidebar.classList.toggle("-translate-x-full");
+        overlay.classList.toggle("hidden");
       }
-      
+
       // Toast notification
       function showToast(message) {
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toastMessage');
-        
+        const toast = document.getElementById("toast");
+        const toastMessage = document.getElementById("toastMessage");
+
         toastMessage.textContent = message;
-        toast.classList.add('show');
-        
+        toast.classList.add("show");
+
         setTimeout(() => {
-          toast.classList.remove('show');
+          toast.classList.remove("show");
         }, 3000);
       }
-      
+
       // Redirect function
       function redirectTo(destination) {
         showToast(`Redirecting to ${destination}...`);
         // In a real implementation, you would redirect after a short delay
         // window.location.href = destination;
-        
+
         // For demo purposes, just show the toast
         console.log(`Would redirect to: ${destination}`);
       }
-      
+
       // Update stats
       function updateStat(type, value) {
-        switch(type) {
-          case 'water':
+        switch (type) {
+          case "water":
             stats.waterGlasses += value;
-            document.getElementById('waterValue').textContent = stats.waterGlasses;
+            document.getElementById("waterValue").textContent =
+              stats.waterGlasses;
             showToast(`Added ${value} glass of water`);
             break;
-          case 'steps':
+          case "steps":
             stats.steps += value;
-            document.getElementById('stepsValue').textContent = stats.steps;
+            document.getElementById("stepsValue").textContent = stats.steps;
             showToast(`Added ${value} steps`);
             break;
-          case 'sleep':
+          case "sleep":
             stats.sleepHours += value;
             const hours = Math.floor(stats.sleepHours);
             const minutes = Math.round((stats.sleepHours % 1) * 60);
-            document.getElementById('sleepValue').textContent = `${hours}h ${minutes}m`;
+            document.getElementById(
+              "sleepValue"
+            ).textContent = `${hours}h ${minutes}m`;
             showToast(`Added ${value} hours of sleep`);
             break;
-          case 'calories':
+          case "calories":
             stats.calories += value;
-            document.getElementById('caloriesValue').textContent = stats.calories;
+            document.getElementById("caloriesValue").textContent =
+              stats.calories;
             showToast(`Added ${value} calories`);
             break;
-          case 'exercise':
+          case "exercise":
             stats.exercisesCompleted += value;
-            stats.exerciseMinutes += (value * 30); // Assuming each exercise is 30 minutes
-            
+            stats.exerciseMinutes += value * 30; // Assuming each exercise is 30 minutes
+
             // Update all instances of exercise values
-            const exerciseValueElements = document.querySelectorAll('#exerciseValue');
-            exerciseValueElements.forEach(el => {
+            const exerciseValueElements =
+              document.querySelectorAll("#exerciseValue");
+            exerciseValueElements.forEach((el) => {
               el.textContent = stats.exercisesCompleted;
             });
-            
-            const exerciseMinutesElements = document.querySelectorAll('#exerciseMinutes');
-            exerciseMinutesElements.forEach(el => {
+
+            const exerciseMinutesElements =
+              document.querySelectorAll("#exerciseMinutes");
+            exerciseMinutesElements.forEach((el) => {
               el.textContent = stats.exerciseMinutes;
             });
-            
+
             showToast(`Added ${value} exercise (30 minutes)`);
-            
+
             // Update progress bar and check rewards
             updateRewardsProgress();
             break;
         }
       }
-      
+
       // Update rewards progress
       function updateRewardsProgress() {
         const minutes = stats.exerciseMinutes;
         const target = 500;
         const progress = Math.min((minutes / target) * 100, 100);
-        
+
         // Update all progress bars
-        const progressBars = document.querySelectorAll('#progressBar');
-        progressBars.forEach(bar => {
+        const progressBars = document.querySelectorAll("#progressBar");
+        progressBars.forEach((bar) => {
           bar.style.width = `${progress}%`;
         });
-        
+
         // Check if rewards should be unlocked
         if (minutes >= target) {
           unlockRewards();
         }
       }
-      
+
       // Unlock rewards
       function unlockRewards() {
         const rewardButtons = [
-          document.getElementById('swiggyButton'),
-          document.getElementById('amazonButton'),
-          document.getElementById('bookMyShowButton')
+          document.getElementById("swiggyButton"),
+          document.getElementById("amazonButton"),
+          document.getElementById("bookMyShowButton"),
         ];
-        
-        rewardButtons.forEach(button => {
-          button.classList.remove('bg-gray-200', 'text-gray-500', 'dark:bg-gray-700', 'dark:text-gray-400');
-          button.classList.add('bg-[#8B5CF6]', 'text-white');
-          button.textContent = 'Claim';
+
+        rewardButtons.forEach((button) => {
+          button.classList.remove(
+            "bg-gray-200",
+            "text-gray-500",
+            "dark:bg-gray-700",
+            "dark:text-gray-400"
+          );
+          button.classList.add("bg-[#8B5CF6]", "text-white");
+          button.textContent = "Claim";
           button.disabled = false;
         });
       }
-      
+
       // Claim reward
       function claimReward(provider, reward) {
         showToast(`Coupon claimed: ${reward}!`);
