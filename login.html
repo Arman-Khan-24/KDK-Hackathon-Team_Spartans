@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      /* Hamburger Menu Styles */
+      @media (max-width: 768px) {
+        .menu-items {
+          display: none;
+        }
+        .menu-items.active {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          top: 70px;
+          right: 0;
+          background: rgba(0, 0, 0, 0.8);
+          backdrop-filter: blur(10px);
+          padding: 1rem;
+          border-radius: 10px;
+          width: 200px;
+        }
+        .menu-items.active > div {
+          margin: 0.5rem 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background Video -->
+    <div class="relative w-full h-screen">
+      <video
+        src="/src/login video.mp4 "
+        autoplay
+        muted
+        playsinline
+        loop
+        class="absolute top-0 left-0 h-full w-full object-cover"
+      ></video>
+
+      <!-- Content Layer -->
+      <div class="absolute top-0 left-0 w-full h-full z-10">
+        <!-- NAVBAR -->
+        <div
+          class="flex justify-between items-center px-5 py-3 mx-4 md:mx-16 my-2 rounded-full font-semibold text-white"
+        >
+          <div class="flex gap-5 rounded-full items-center">
+            <div class="text-lg font-bold text-white">CodesLab</div>
+          </div>
+          <!-- Hamburger Menu Button -->
+          <button id="hamburger" class="md:hidden text-white text-2xl">
+            <i class="fas fa-bars"></i>
+          </button>
+          <!-- Menu Items -->
+          <div class="menu-items md:flex gap-8">
+            <div
+              class="hover:text-pink-400 transition-colors duration-300 cursor-pointer flex justify-center items-center"
+            >
+              Home
+            </div>
+            <div
+              class="border border-blue-400 px-4 py-2 rounded-md hover:bg-pink-500 hover:text-white transition-all duration-300 cursor-pointer hover:border-pink-400"
+            >
+              Sign Up
+            </div>
+          </div>
+        </div>
+
+        <!-- Login Section -->
+        <div class="min-h-screen flex justify-center items-center -mt-16">
+          <div
+            class="bg-white/10 backdrop-blur-md p-8 shadow-lg rounded-lg w-full max-w-sm text-white border border-white/20"
+          >
+            <h1 class="text-center text-3xl mb-6 font-semibold">Login</h1>
+            <form>
+              <!-- Email Input -->
+              <div class="mb-4">
+                <input
+                  class="w-full bg-transparent border border-white/50 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-300 placeholder-white/80"
+                  type="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <!-- Password Input -->
+              <div class="mb-4">
+                <input
+                  class="w-full bg-transparent border border-white/50 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-300 placeholder-white/80"
+                  type="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <!-- Remember Me & Forgot Password -->
+              <div class="flex justify-between items-center mb-6 text-sm">
+                <label class="flex items-center">
+                  <input
+                    type="checkbox"
+                    class="form-checkbox h-4 w-4 text-blue-500 mr-2"
+                  />
+                  Remember me
+                </label>
+                <a href="#" class="text-blue-300 hover:underline"
+                  >Forgot Password?</a
+                >
+              </div>
+              <!-- Login Button -->
+              <button
+                type="submit"
+                class="w-full bg-blue-500 hover:bg-pink-600 text-white font-medium py-2 rounded-lg transition duration-300 hover:shadow-lg hover:shadow-pink-500/50"
+              >
+                Login
+              </button>
+
+              <!-- Google Sign In Button -->
+              <div class="mt-4">
+                <button
+                  type="button"
+                  class="w-full bg-white text-gray-700 font-medium py-2 px-4 rounded-lg transition duration-300 hover:bg-gray-100 flex items-center justify-center gap-2"
+                >
+                  <img
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google"
+                    class="w-5 h-5"
+                  />
+                  Sign in with Google
+                </button>
+              </div>
+
+              <!-- Register Link -->
+              <div class="text-center mt-4 text-sm">
+                Don't have an account?
+                <a href="/src/signup.html" class="text-blue-300 hover:underline">Register</a>
+              </div>
+              <div class="text-center mt-4 text-sm">
+                Enter
+                <a href="/src/dashboard.html" class="text-blue-300 hover:underline">Demo mode</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Hamburger Menu Script -->
+    <script>
+      document
+        .getElementById("hamburger")
+        .addEventListener("click", function () {
+          document.querySelector(".menu-items").classList.toggle("active");
+        });
+
+      (function () {
+        if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+          window.chatbase = (...arguments) => {
+            if (!window.chatbase.q) {
+              window.chatbase.q = [];
+            }
+            window.chatbase.q.push(arguments);
+          };
+          window.chatbase = new Proxy(window.chatbase, {
+            get(target, prop) {
+              if (prop === "q") {
+                return target.q;
+              }
+              return (...args) => target(prop, ...args);
+            },
+          });
+        }
+        const onLoad = function () {
+          const script = document.createElement("script");
+          script.src = "https://www.chatbase.co/embed.min.js";
+          script.id = "R-WLjeepu7Oa8FqPisdF8";
+          script.domain = "www.chatbase.co";
+          document.body.appendChild(script);
+        };
+        if (document.readyState === "complete") {
+          onLoad();
+        } else {
+          window.addEventListener("load", onLoad);
+        }
+      })();
+    </script>
+  </body>
+</html>
